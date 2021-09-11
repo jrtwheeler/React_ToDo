@@ -28,9 +28,13 @@ const App = () => {
 
   useEffect(() => {
     if(firstRender.current){
-      
+      firstRender.current=false;
+    } else {
+      localStorage.setItem("Todo", JSON.stringify([...todos]))
     }
-  }, [])
+  }, [todos]);
+
+  useEffect (())
 
   return (
     <div className="App">

@@ -1,39 +1,58 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
-import './App.css';
+import "./App.css";
 
 const App = () => {
+  const firstRender = useRef(true);
   const [inputValue, setInputValue] = useState("");
   const [todos, setTodos] = useState([]);
 
-  const addTodo = () => {
+  const addTodo = (e) => {
     e.preventDefault();
-    setTodos([...todos, {
-      text: inputValue,
-      id: uuidv4()
-    }])
+    if (inputValue.trim() === "") return;
+
+    setTodos([
+      ...todos,
+      {
+        text: inputValue,
+        id: uuidv4(),
+      },
+    ]);
+
+    setInputValue("");
   };
+
+  const removeTodo = () => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
+  useEffect(() => {
+    if(firstRender.current){
+      
+    }
+  }, [])
 
   return (
     <div className="App">
       <div className="container">
         <form onSubmit={addTodo}>
-          <input 
-          type="text"
-          placeholder="Add a todo..."
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          <input
+            type="text"
+            placeholder="Add a todo..."
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
           />
           <button type="submit">Add</button>
         </form>
         {todos.map((todo) => (
-          <div className="todo">
-            <p>{todo}</p>
+          <div key={todo.id} className="todo">
+            <p>{todo.text}</p>
+            <i onClick={() => removeTodo(todo.id)}className="fas fa-trash"></i>
           </div>
         ))}
       </div>
     </div>
   );
-}
+};
 
 export default App;

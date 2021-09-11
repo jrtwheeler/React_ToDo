@@ -34,7 +34,12 @@ const App = () => {
     }
   }, [todos]);
 
-  useEffect (())
+  useEffect(() => {
+    if (localStorage.getItem("Todo") !== null) {
+    const newTodos = localStorage.getItem("Todo");
+    setTodos(JSON.parse([...todos, newTodos]));
+    }
+  }, []);
 
   return (
     <div className="App">

@@ -22,7 +22,7 @@ const App = () => {
     setInputValue("");
   };
 
-  const removeTodo = () => {
+  const removeTodo = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
@@ -46,12 +46,13 @@ const App = () => {
       <div className="container">
         <form onSubmit={addTodo}>
           <input
+            autoFocus
             type="text"
             placeholder="Add a todo..."
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
-          <button type="submit">Add</button>
+          <button type="submit"><i class="fas fa-plus-square"></i></button>
         </form>
         {todos.map((todo) => (
           <div key={todo.id} className="todo">
